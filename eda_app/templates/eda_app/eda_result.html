@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EDA Result</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>EDA Overview</h2>
+    <h3>Selected Target Column: {{ target_column }}</h3>
+
+    <table>
+        <tr>
+            <th>Feature</th>
+            <th>Dataset Statistics</th>
+            <th>Variable Types</th>
+            <th>Data Types of Columns</th>
+        </tr>
+        {% for row in overview %}
+        <tr>
+            <td>{{ row.0 }}</td>
+            <td>{{ row.1 }}</td>
+            <td>{{ row.2 }}</td>
+            <td>{{ row.3 }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <a href="{% url 'upload_file' %}">Upload Another File</a>
+</body>
+</html>

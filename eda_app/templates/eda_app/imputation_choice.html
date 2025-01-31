@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Imputation Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        h2 {
+            color: #333;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        form {
+            display: inline-block;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+        .yes-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .no-btn {
+            background-color: #f44336;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h2>Dataset Overview</h2>
+    
+    <table>
+        <tr>
+            <th>Feature</th>
+            <th>Dataset Statistics</th>
+            <th>Variable Types</th>
+            <th>Data Types of Columns</th>
+        </tr>
+        {% for row in overview %}
+        <tr>
+            <td>{{ row.0 }}</td>
+            <td>{{ row.1 }}</td>
+            <td>{{ row.2 }}</td>
+            <td>{{ row.3 }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Are you satisfied with the imputation done by RandomForest?</h2>
+
+    <form method="post" action="{% url 'handle_imputation_choice' %}">
+        {% csrf_token %}
+        <button type="submit" name="imputation_choice" value="yes" class="yes-btn">Yes</button>
+        <button type="submit" name="imputation_choice" value="no" class="no-btn">No</button>
+    </form>
+</body>
+</html>

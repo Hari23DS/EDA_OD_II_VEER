@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Statistical Test Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .highlight {
+            background-color: #dff0d8; /* Light green for significant values */
+        }
+        .suggested {
+            color: #d9534f; /* Red for suggested features */
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h2>Statistical Test Results</h2>
+
+    <table>
+        <tr>
+            <th>Feature</th>
+            <th>Test</th>
+            <th>P-Value</th>
+            <th>Adjusted P-Value</th>
+            <th>Correlation</th>
+        </tr>
+        {% for feature, result in results.statistical_results.items %}
+        <tr class="{% if result.adjusted_p_value < 0.05 %}highlight{% endif %}">
+            <td>{{ feature }}</td>
+            <td>{{ result.test }}</td>
+            <td>{{ result.p_value|floatformat:4 }}</td>
+            <td>{{ result.adjusted_p_value|floatformat:4 }}</td>
+            <td>
+                {% if result.correlation is not None %}
+                    {{ result.correlation|floatformat:4 }}
+                {% else %}
+                    N/A
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h3>Suggested Features for Further Analysis:</h3>
+    <ul>
+        {% if results.suggested_features %}
+            {% for feature in results.suggested_features %}
+                <li class="suggested">{{ feature }}</li>
+            {% endfor %}
+        {% else %}
+            <p>No significant features found.</p>
+        {% endif %}
+    </ul>
+
+    <br>
+    <a href="{% url 'upload_file' %}">Upload Another File</a>
+</body>
+</html>
