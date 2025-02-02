@@ -1,0 +1,14 @@
+django
+numpy
+pandas
+seaborn
+matplotlib
+opencv-python
+pyyaml
+seaborn
+tqdm
+ultralytics
+matplotlib
+Pillow
+scikit-learn
+statsmodels

@@ -71,8 +71,19 @@
             <p>No significant features found.</p>
         {% endif %}
     </ul>
-
     <br>
-    <a href="{% url 'upload_file' %}">Upload Another File</a>
+    <h1>Exploratory Data Analysis</h1>
+
+        {% for column_data in output_data %}
+            <h2>--- Analyzing Column: {{ column_data.column }} ---</h2>
+            <div class="stat-table">
+                {{ column_data.stat_table|safe }}
+            </div>
+            <div class="graphs">
+                {% for plot in column_data.plots %}
+                    <img src="{{ plot }}" alt="Graph" style="max-width: 100%; height: auto;">
+                {% endfor %}
+            </div>
+        {% endfor %}
 </body>
 </html>
